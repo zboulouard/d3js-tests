@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>D3 Tutorial Test3 Visualize Basic Data</title>
+		<script src="d3.min.js"></script>
+	</head>
+	<body>
+	
+		<script type="text/javascript">
+			
+			var dataArray = [20, 40, 50];
+			
+			var canvas = d3.select("body")
+							.append("svg")
+							.attr("width", 500) //change tag's attributes
+							.attr("height", 500);
+			
+			var bars = canvas.selectAll("rect") //returns all the rectangles in the web but since there's none, it will return empty
+												//rectangles that would be filled from our data
+							 .data(dataArray)//data source
+							 .enter() //binds data elements that are still to be binded to accoding rectangles (in our case, 3 data elements)
+							 	.append("rect") //appends a rectangle to each data element
+								.attr("width", function(d) { return d * 10; }) //each data element will be the width of the corresponding rectangle
+								.attr("height", 50)
+								.attr("y", function(d, i) { return i * 100 });
+			
+		</script>
+	</body>
+</html>

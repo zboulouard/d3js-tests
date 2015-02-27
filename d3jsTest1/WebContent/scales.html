@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>D3 Tutorial Test4 Scales</title>
+		<script src="d3.min.js"></script>
+	</head>
+	<body>
+	
+		<script type="text/javascript">
+			
+			var dataArray = [20, 40, 50, 60]; //60 will exceed the canvas width therefore we will use the scale function
+			
+			var width = 500;
+			var height = 500;
+			
+			var widthScale = d3.scale.linear() //apply linear scaling to the width
+							.domain([0, 60]) //the interval between the minimum and the maximum values to be scaled
+							.range([0, width]); //the range that shouldn't be exceeded while scaling
+			
+			var colorScale = d3.scale.linear()
+								.domain([0, 60])
+								.range(["red", "blue"]);
+							
+			var canvas = d3.select("body")
+							.append("svg")
+							.attr("width", width) 
+							.attr("height", height);
+			
+			var bars = canvas.selectAll("rect") 
+							 .data(dataArray)
+							 .enter() 
+							 	.append("rect") 
+								.attr("width", function(d) { return widthScale(d); }) //the bars' width will depend on the widthScale 
+								.attr("height", 50)
+								.attr("fill", function(d) { return colorScale(d); }) //the color shades vary according to the colorScale
+								.attr("y", function(d, i) { return i * 100 });
+			
+		</script>
+	</body>
+</html>
