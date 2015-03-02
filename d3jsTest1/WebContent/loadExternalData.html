@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>D3 Tutorial Test9 Load External Data</title>
+		<script src="d3.min.js"></script>
+	</head>
+	<body>
+	
+		<script type="text/javascript">
+			
+			// The json file
+			
+			d3.json("mydata.json", function(data) { 
+				
+				var canvas = d3.select("body")
+								.append("svg")
+								.attr("width", 500)
+								.attr("height", 500);
+				
+				canvas.selectAll("rect")
+						.data(data)
+						.enter()
+							.append("rect")
+							.attr("width", function(d) { return d.age * 10; } )
+							.attr("height", 48)
+							.attr("y", function(d, i) { return i * 50; } )
+							.attr("fill", "blue");
+							
+				canvas.selectAll("text")
+						.data(data)
+						.enter()
+							.append("text")
+							.attr("fill", "white")
+							.attr("y", function(d, i) { return i * 50 + 24; } )
+							.text(function(d) { return d.name; } );
+				
+			});								// 1st argument : file address, 2nd argument : callback function
+											// All the code in the callback function will be called once the data is loaded from the file
+											// the variable data is where the file's data is stored while loading
+			
+			// For the csv file it all the same all you can do is to write d3.csv("mydata.csv", function(data) { the same code } );
+										
+		</script>
+	</body>
+</html>
