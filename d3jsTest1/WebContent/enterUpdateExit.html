@@ -8,6 +8,44 @@
 	
 		<script type="text/javascript">
 			
+			// 3 types of relationship between DOM elements and Data elements :
+			// Number of DOM elements < Number of Data elements : enter
+			// Number of DOM elements = Number of Data elements : update
+			// Number of DOM elements > Number of Data elements : exit
+			
+			var data1 = [10, 20]; 												/* Enter and update example data */
+			
+			var data2 = [10];
+			
+			var canvas = d3.select("body")
+							.append("svg")
+							.attr("width", 500)
+							.attr("height", 500);
+		
+			var circle1 = canvas.append("circle")
+								.attr("cx", 50)
+								.attr("cy", 100)
+								.attr("r", 25);
+			
+			var circle2 = canvas.append("circle")
+								.attr("cx", 50)
+								.attr("cy", 200)
+								.attr("r", 25);
+			
+			var circles = canvas.selectAll("circle")
+// 								.data(data1)
+// 								.attr("fill", "red") //update selection
+// 								.enter()
+// 									.append("circle")								/* Enter and update examples */
+// 									.attr("cx", 50)
+// 									.attr("cy", 50)
+// 									.attr("fill", "green") //enter selection
+// 									.attr("r", 25);
+								.data(data2)
+								.attr("fill", "green")
+								.exit()
+									.attr("fill", "blue");
+			
 										
 		</script>
 	</body>
