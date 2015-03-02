@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>D3 Tutorial Test13 Tree Layout 2</title>
+		<script src="d3.min.js"></script>
+	</head>
+	<body>
+	
+		<script type="text/javascript">
+		
+		var canvas = d3.select("body")
+						.append("svg")
+						.attr("width", 500) 
+						.attr("height", 500)
+						.append("g")
+							.attr("transform", "translate(50, 50)");
+		
+		var tree = d3.layout.tree()
+								.size([400, 400]);
+		
+		d3.json("treedata.json", function(data) {
+			
+			var nodes = tree.nodes(data); //gets an array of all the nodes in the tree layout with x, y, parents, etc... properties
+			//console.log(nodes);
+			var links = tree.links(nodes); //gets an array of all the nodes in the tree layout with source and target properties
+			//console.log(links);
+			
+			var node = canvas.selectAll(".node")
+								.data(nodes)
+								.enter()
+									.append("g")
+										.attr("class", "node")
+										.attr("transform", function(d) {return "translate(" + d.y + ", " + d.x + ")";} ); //switch x and y to rotate nodes from top-to-bottom to left-to-right
+			
+			node.append("circle")
+					.attr("r", 5)
+					.attr("fill", "steelblue");
+			
+			node.append("text")
+					.text(function(d) { return d.name; } );
+			
+			var diagonal = d3.svg.diagonal()
+									.projection(function(d) { return [d.y, d.x]; } ); //use projection to rotate links from top-to-bottom to left-to-right
+			
+			canvas.selectAll(".link")
+					.data(links)
+					.enter()
+						.append("path")
+						.attr("class", "link")
+						.attr("fill", "none")
+						.attr("stroke", "#ADADAD")
+						.attr("d", diagonal);
+			
+			
+		})
+		
+										
+		</script>
+	</body>
+</html>
