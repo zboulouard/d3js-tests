@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>D3 Tutorial Test10 Paths</title>
+		<script src="d3.min.js"></script>
+	</head>
+	<body>
+	
+		<script type="text/javascript">
+		
+		// Paths are used to represent unusual shapes and for that we need to generate the corresponding coordinates of the group in a d variable (for data)
+		// the variable line (path generator) is used for that purpose 
+			
+		var canvas = d3.select("body")
+						.append("svg")
+						.attr("width", 500) 
+						.attr("height", 500);
+		
+		var data = [
+				{ x: 10, y: 20 },
+				{ x: 40, y: 60 },
+				{ x: 50, y: 70 }
+		];
+		
+		var group = canvas.append("g")
+							.attr("transform", "translate(100, 100)");
+		
+		var line = d3.svg.line()
+							.x(function(d) { return d.x; } )	//Accessors
+							.y(function(d) { return d.y; } )
+		
+		group.selectAll("path")
+				.data([data])
+				.enter()
+				.append("path")
+				.attr("d", line)
+				.attr("fill", "none")
+				.attr("stroke", "#000")
+				.attr("stroke-width", 10);
+										
+		</script>
+	</body>
+</html>
